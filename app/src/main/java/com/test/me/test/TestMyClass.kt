@@ -217,10 +217,6 @@ data class Employee(
 //--------------------------------------------
 
 
-internal fun Int.asIdToString():String {
-    return "ccc $this"
-}
-
 
 private fun foo() { /**/ }
 public var bar: Int = 5 // 该属性随处可见

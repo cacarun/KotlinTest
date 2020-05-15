@@ -1,5 +1,8 @@
 package com.test.me.main.model
 
+import android.util.Log
+import com.test.me.R
+import com.test.me.util.asIdToString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
@@ -13,13 +16,17 @@ class MainModel(private val isoCC: String) {
 
         return withContext(Dispatchers.Default) {
 
-            mainFromServer?.let { _ ->
-
-                val mainForUI = MainForUI(itemData = MainForUI.ItemData("title", "desc"))
-
-                return@let mainForUI
-            }
+            mainFromServer?.convertToMainForUI()
         }
+    }
+
+    private fun MainFromServer.convertToMainForUI(): MainForUI {
+
+        Log.d("", "server data size=${itemData.size}")
+
+        return MainForUI(itemData = MainForUI.ItemData(
+                R.string.title.asIdToString(),
+                R.string.desc.asIdToString()))
     }
 
     private fun isUS(): Boolean {
