@@ -1,5 +1,6 @@
 package com.test.me.main.presenter
 
+import android.util.Log
 import com.test.me.util.MODULE_TAG
 import com.test.me.main.model.MainModel
 import com.test.me.main.view.MainView
@@ -30,6 +31,24 @@ class MainPresenter(scope: CoroutineScope, private val view: MainView): Coroutin
             }
 
             view.dismissWaitDialog()
+        }
+    }
+
+    fun initPush() {
+
+        launch {
+
+            val start = System.currentTimeMillis()
+
+            Log.d("MainPresenter", "$tag, start=$start")
+
+            val result = model.initPush(0)
+
+            val end = System.currentTimeMillis()
+
+            val cost = end - start
+
+            Log.d("MainPresenter", "$tag, end=$end, cost=$cost, result=$result")
         }
     }
 }

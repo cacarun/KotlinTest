@@ -2,6 +2,8 @@ package com.test.me.main.model
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class MainModel(private val isoCC: String) {
 
@@ -23,6 +25,24 @@ class MainModel(private val isoCC: String) {
     private fun isUS(): Boolean {
 
         return isoCC == "US"
+    }
+
+    suspend fun initPush(flag: Int) = suspendCoroutine<String> {
+
+        PushManager.initPush(flag, object : PushManager.PushCallback {
+
+            override fun onSucceed() {
+
+                it.resume("Success!")
+            }
+
+            override fun onError() {
+
+//                it.resumeWithException(RuntimeException("Error!"))
+                it.resume("Error!")
+            }
+
+        })
     }
 
 }

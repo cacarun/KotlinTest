@@ -39,6 +39,7 @@ class MainActivity : ScopedActivity(), MainView {
         presenter = MainPresenter(scope = this, view = this)
 
         presenter.start()
+//        presenter.initPush()
     }
 
     override fun getIsoCC(): String {
